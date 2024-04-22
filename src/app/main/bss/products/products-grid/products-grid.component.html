@@ -1,5 +1,4 @@
-<!-- products-grid.component.html -->
-<div class="product-form">
+<!-- <div class="product-form">
   <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
     <mat-form-field appearance="fill">
       <mat-label>Precio</mat-label>
@@ -16,14 +15,20 @@
       <input matInput formControlName="physicalSpecs">
     </mat-form-field>
 
+    <input type="file" (change)="onFileSelect($event)" accept="image/*">
+
     <button mat-raised-button color="primary" type="submit" [disabled]="!productForm.valid">Agregar Producto</button>
   </form>
+</div> -->
+
+<div class="product-list" fxLayout="row wrap" fxLayoutGap="5px" fxLayoutAlign="space-evenly start" style="margin-top: 100px;">
+  <div *ngFor="let product of products" class="product-item" fxLayout="column" fxFlex="20" fxLayoutAlign="center center">
+    <img [src]="product.image | resizeImage:200:200 | async" alt="Imagen del producto">
+    <p style="padding-top: 10px; padding-bottom: 10px;">{{product.name}}</p>
+    <p style="padding-top: 10px; padding-bottom: 10px;">Precio: {{ product.price }}</p>
+    <p style="padding-top: 10px; padding-bottom: 10px;">Precio: {{ product.technicalSpecs }}</p>
+    <p style="padding-top: 10px; padding-bottom: 10px;">Precio: {{ product.physicalSpecs }}</p>
+    <!-- <button mat-button (click)="viewMore(product)">Ver Más</button> -->
+  </div>  
 </div>
 
-<div class="product-list">
-  <div *ngFor="let product of products" class="product-item">
-    <img [src]="product.imageUrl" alt="Imagen del producto">
-    <p>Precio: {{ product.price }}</p>
-    <button mat-button (click)="viewMore(product)">Ver Más</button>
-  </div>
-</div>

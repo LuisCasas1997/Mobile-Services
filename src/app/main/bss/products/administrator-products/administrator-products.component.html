@@ -1,0 +1,28 @@
+ <div class="product-form">
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+
+    <mat-form-field appearance="fill">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="name" type="string">
+      </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Precio</mat-label>
+      <input matInput formControlName="price" type="number">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Especificaciones Técnicas</mat-label>
+      <input matInput formControlName="technicalSpecs">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Especificaciones Físicas</mat-label>
+      <input matInput formControlName="physicalSpecs">
+    </mat-form-field>
+
+    <input type="file" (change)="onFileSelect($event)" accept="image/*">
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="!productForm.valid">Agregar Producto</button>
+  </form>
+</div> 
