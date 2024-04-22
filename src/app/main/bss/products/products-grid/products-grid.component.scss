@@ -1,0 +1,29 @@
+.product-form {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto;
+
+  mat-form-field {
+    width: 100%;
+  }
+}
+
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+  .product-item {
+    width: 100%;
+    max-width: 300px;
+    margin: 10px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+}
