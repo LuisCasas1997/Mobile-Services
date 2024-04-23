@@ -23,8 +23,5 @@ import { ProductsModule } from '../products/products.module';
     NavbarComponent,
     SidebarComponent
   ],
-  // providers:[
-  //   AdministratorProductsComponent
-  // ]
 })
 export class CoreModule { }

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
+// import { AppRoutingModule } from './app-routing.module';
 import { BssModule } from './main/bss/bss.module';
 import { CoreModule } from '@angular/flex-layout';
 
@@ -14,7 +14,7 @@ import { CoreModule } from '@angular/flex-layout';
     FormsModule,
     ReactiveFormsModule,
     BssModule,
-    AppRoutingModule,
+    // AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

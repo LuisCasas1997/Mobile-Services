@@ -1,0 +1,37 @@
+.product-form {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto;
+
+  mat-form-field {
+    width: 100%;
+  }
+}
+
+.product-item {
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  // width: 100%;
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+.product-item {
+   margin: 5px;
+ }
+
+@media (min-width: 600px) {
+  .product-item {
+    margin: 10px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .product-item {
+    margin: 15px;
+  }
+}

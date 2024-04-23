@@ -1,5 +1,11 @@
-<!-- <div class="product-form">
+<div class="product-form" style="margin-top: 80px;">
   <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+
+    <mat-form-field appearance="fill">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="productName" type="string">
+      </mat-form-field>
+
     <mat-form-field appearance="fill">
       <mat-label>Precio</mat-label>
       <input matInput formControlName="price" type="number">
@@ -19,16 +25,16 @@
 
     <button mat-raised-button color="primary" type="submit" [disabled]="!productForm.valid">Agregar Producto</button>
   </form>
-</div> -->
+</div>
 
 <div class="product-list" fxLayout="row wrap" fxLayoutGap="5px" fxLayoutAlign="space-evenly start" style="margin-top: 100px;">
   <div *ngFor="let product of products" class="product-item" fxLayout="column" fxFlex="20" fxLayoutAlign="center center">
     <img [src]="product.image | resizeImage:200:200 | async" alt="Imagen del producto">
     <p style="padding-top: 10px; padding-bottom: 10px;">{{product.name}}</p>
-    <p style="padding-top: 10px; padding-bottom: 10px;">Precio: {{ product.price }}</p>
-    <p style="padding-top: 10px; padding-bottom: 10px;">Precio: {{ product.technicalSpecs }}</p>
-    <p style="padding-top: 10px; padding-bottom: 10px;">Precio: {{ product.physicalSpecs }}</p>
+    <p style="padding-top: 10px; padding-bottom: 10px;">Precio: ${{ product.price }}</p>
+    <p style="padding-top: 10px; padding-bottom: 10px;">Técnicas: {{ product.technicalSpecs }}</p>
+    <p style="padding-top: 10px; padding-bottom: 10px;">Fisicas: {{ product.physicalSpecs }}</p>
     <!-- <button mat-button (click)="viewMore(product)">Ver Más</button> -->
-  </div>  
+  </div>
 </div>
 
