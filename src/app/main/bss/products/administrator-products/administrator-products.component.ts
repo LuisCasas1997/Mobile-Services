@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-administrator-products',
   templateUrl: './administrator-products.component.html',
-  styleUrl: './administrator-products.component.scss'
+  styleUrls: ['./administrator-products.component.scss']
 })
 
 export class AdministratorProductsComponent implements OnInit {
@@ -13,11 +13,18 @@ export class AdministratorProductsComponent implements OnInit {
   productForm!: FormGroup;
 
   constructor(
-     private fb: FormBuilder,
-    private productService: ProductService
-  ) {}
+    private fb: FormBuilder,
+    private productService: ProductService,
+  ) {
+
+    this._createForm(null);
+  }
 
   ngOnInit(): void {
+
+  }
+
+  _createForm(item: any) {
     this.productForm = this.fb.group({
       productName: ['', Validators.required],
       price: ['', Validators.required],
@@ -29,7 +36,9 @@ export class AdministratorProductsComponent implements OnInit {
 
   onSubmit() {
     if (this.productForm.valid) {
-      this.productService.addProduct(this.productForm.value)
+      this.productService.addProduct(this.productForm.value).then(() => {
+        this.productForm.reset();
+      });
     }
   }
 

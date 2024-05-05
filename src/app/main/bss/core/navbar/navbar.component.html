@@ -13,14 +13,17 @@
         <div class="offcanvas-body">
           <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">
+              <a class="nav-link active" aria-current="page" (click)="goToHome()">
                 <mat-icon class="s-24 secondary-text">home</mat-icon>
                 Home
               </a>
             </li>
-            <!-- <li class="nav-item">
-              <a href="/administrator-products">Administrator Products</a>
-            </li> -->
+            <li class="nav-item">
+              <a class="nav-link active" (click)="goToAdministrator()">
+                <mat-icon class="s-24 secondary-text">person</mat-icon>
+                Administrator Products
+              </a>
+            </li>
             <!-- <li class="nav-item">
               <a class="nav-link" (click)="goToAdministrator()">Mi perfil</a>
             </li> -->

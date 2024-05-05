@@ -1,9 +1,9 @@
- <div class="product-form">
+<div class="product-form" style="margin-top: 80px;">
   <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
 
     <mat-form-field appearance="fill">
         <mat-label>Nombre</mat-label>
-        <input matInput formControlName="name" type="string">
+        <input matInput formControlName="productName" type="string">
       </mat-form-field>
 
     <mat-form-field appearance="fill">

@@ -18,11 +18,11 @@ import { AdministratorProductsComponent } from './administrator-products/adminis
 
 export const PRODUCT_ROUTES: Routes = [
   {
-    path: '',
+    path: 'products-grid',
     component: ProductsGridComponent
   },
   {
-    path:'administrator-products',
+    path: 'administrator-products',
     component: AdministratorProductsComponent
   }
 ];

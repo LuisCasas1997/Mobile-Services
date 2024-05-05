@@ -13,16 +13,11 @@ export class NavbarComponent{
   ){}
 
   goToAdministrator(){
-    this._router.navigate(['/administrator-products']);
+    this._router.navigate(['/products/administrator-products']);
   }
 
   goToHome() {
-    this._router.navigate(['/home']);
+    this._router.navigate(['/products/products-grid']);
   }
-
-  // goToPage(event: MouseEvent): void {
-  //   event.preventDefault();
-  //   this._router.navigate(['/administrator-products']);
-  // }
 
 }

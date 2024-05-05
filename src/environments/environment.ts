@@ -7,5 +7,7 @@ export const environment = {
     storageBucket: "mobile-services-3541b.appspot.com",
     messagingSenderId: "271961961900",
     appId: "1:271961961900:web:7aad4d321c3e2534c23609"
-  }
+  },
+
+  messageDuration         : 6000,
 }

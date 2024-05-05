@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ProductService } from '../product.service';
+import { ProductService } from '../product.service';;
+
 
 @Component({
   selector: 'app-products-grid',
   templateUrl: './products-grid.component.html',
   styleUrls: ['./products-grid.component.scss']
 })
-export class ProductsGridComponent implements OnInit {
+export class ProductsGridComponent implements OnInit, OnDestroy {
   products: any[] = [];
   productForm!: FormGroup;
 
@@ -57,4 +58,9 @@ export class ProductsGridComponent implements OnInit {
 
   viewMore(product: any) {
   }
+
+  ngOnDestroy() {
+
+  }
+
 }

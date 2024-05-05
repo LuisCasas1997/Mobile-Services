@@ -1,32 +1,3 @@
-<div class="product-form" style="margin-top: 80px;">
-  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
-
-    <mat-form-field appearance="fill">
-        <mat-label>Nombre</mat-label>
-        <input matInput formControlName="productName" type="string">
-      </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Precio</mat-label>
-      <input matInput formControlName="price" type="number">
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Especificaciones Técnicas</mat-label>
-      <input matInput formControlName="technicalSpecs">
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Especificaciones Físicas</mat-label>
-      <input matInput formControlName="physicalSpecs">
-    </mat-form-field>
-
-    <input type="file" (change)="onFileSelect($event)" accept="image/*">
-
-    <button mat-raised-button color="primary" type="submit" [disabled]="!productForm.valid">Agregar Producto</button>
-  </form>
-</div>
-
 <div class="product-list" fxLayout="row wrap" fxLayoutGap="5px" fxLayoutAlign="space-evenly start" style="margin-top: 100px;">
   <div *ngFor="let product of products" class="product-item" fxLayout="column" fxFlex="20" fxLayoutAlign="center center">
     <img [src]="product.image | resizeImage:200:200 | async" alt="Imagen del producto">
