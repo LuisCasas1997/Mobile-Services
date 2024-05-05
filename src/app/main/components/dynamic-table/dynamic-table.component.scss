@@ -1,0 +1,46 @@
+#dynamic-table {
+
+    div {
+        .mat-table {
+
+            .mat-header-row {
+                .mat-header-cell {
+                    &:first-child {
+                        padding-left: 20px !important;
+                    }
+                }
+            }
+
+            .mat-row {
+                &:hover {
+                    cursor: pointer;
+                    background-color: #e0e0e0;
+                }
+
+                &.row-selected {
+                    background-color: #e0e0e0;
+                }
+
+                .mat-cell {
+                    &:first-child {
+                        padding-left: 20px !important;
+                    }
+                }
+            }
+        }
+
+        .rows-empty,
+        .loading {
+            padding: 25px;
+            font-size: 17px;
+            font-style: italic;
+            color: #8e8e8e;
+            font-weight: 500;
+        }
+    }
+
+    .cursor-default,
+    .cursor-default:hover {
+        cursor: default !important;
+    }
+}

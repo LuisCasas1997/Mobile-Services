@@ -1,0 +1,229 @@
+<div id="dynamic-table" fxLayout="column">
+    <!-- HEADER -->
+    <div class="dynamic-table-header" fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between center">
+        <!-- FILTER INPUT -->
+        <mat-form-field *ngIf="canFilter" class="w-100-p pl-8 pr-8">
+            <!-- <input matInput [(ngModel)]="filter" (keyup)="applyFilter($event.target.value)" placeholder="Filtro"> -->
+            <input matInput [formControl]="filterInputControl" placeholder="Filtro" />
+            <button mat-icon-button matSuffix (click)="clear()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field>
+        <!-- / FILTER INPUT -->
+
+        <!-- ADD BUTTON -->
+        <button *ngIf="canAddItem" mat-icon-button class="accent mr-8" matTooltip="Nuevo" (click)="newItem()">
+            <mat-icon>add</mat-icon>
+        </button>
+        <!-- / ADD BUTTON -->
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="dynamic-table-content" class="mat-elevation-z2" style="overflow-x: auto" #TABLE>
+        <!-- DATA TABLE -->
+        <table mat-table class="data-table" [ngClass]="tableClassName" [dataSource]="dataSource" matSort class="w-100-p"
+            fusePerfectScrollbar>
+            <ng-container *ngFor="let column of columns" [cdkColumnDef]="column.columnDef">
+                <!-- TABLE HEADER DEFINITION -->
+                <th mat-header-cell class="pl-4" *cdkHeaderCellDef mat-sort-header
+                    [fxShow.sm]="!column.hideOnSm ? true : !column.hideOnSm"
+                    [fxShow.xs]="!column.hideOnXs ? true : !column.hideOnXs" [fxHide]="hideHeader"
+                    [ngClass]="column.headerClass ? column.headerClass : ''">
+                    {{ column.headerName }}
+                </th>
+                <!-- / TABLE HEADER DEFINITION -->
+
+                <!-- TABLE ROW DEFINITION -->
+                <td mat-cell class="pl-4" [fxShow.sm]="!column.hideOnSm?true:!column.hideOnSm" *cdkCellDef="let row"
+                    [fxShow.xs]="!column.hideOnXs?true:!column.hideOnXs"
+                    [ngClass]="column.contentClass ? column.contentClass : ''">
+                    <div [ngClass]="column.conditionalClass ? column.conditionalClass(row) : ''">
+
+                        <!-- DEFAULT ROW DEFINITION -->
+                        <div
+                            *ngIf="(!column.operations || !column.operations.length) && !column.isIcon && !column.isActiveFormat && !column.isTemplate && !column.isHtmlTemplate">
+
+                            <div
+                                *ngIf="!column.columnType || column.columnType=='text' || (column.conditionalInputClass != undefined && !column.conditionalInputClass(row)) else inputType">
+                                {{
+                                column.cell
+                                ? column.cell(row)
+                                : row[column.columnDef]
+                                }}
+                            </div>
+
+                            <ng-template #inputType>
+                                <dynamic-input [value]="row[column.columnDef]" [type]="column.inputType ?? 'text'"
+                                    [disabledInput]="column.disabledInput ?? false"
+                                    [placeholder]="column.placeholder ?? ''">
+                                </dynamic-input>
+                            </ng-template>
+
+                        </div>
+                        <!-- / DEFAULT ROW DEFINITION -->
+
+
+                        <!-- OPERATIONS ROW DEFINITION -->
+                        <div *ngIf="column.operations && column.operations.length" fxLayout="row"
+                            fxLayoutAlign="end center" fxLayoutGap="5px">
+
+                            <!-- 'More' Visualization -->
+                            <div [fxHide]="!column.operationVisualization || column.operationVisualization === 'icons'"
+                                fxShow.xs>
+                                <button mat-icon-button [matMenuTriggerFor]="moreMenu" aria-label="More"
+                                    (click)="$event.stopPropagation();">
+                                    <mat-icon class="secondary-text">more_vert</mat-icon>
+                                </button>
+
+                                <mat-menu #moreMenu="matMenu">
+                                    <div *ngFor="let operation of column.operations">
+                                        <button mat-menu-item [fxHide.xs]="operation.hideOnXs"
+                                            *ngIf="!operation.hideCondition || (operation.hideCondition && operation.hideCondition(row))"
+                                            [ngClass]="operation.color" (click)="operation.action(row)">
+                                            <mat-icon [ngClass]="operation.color"
+                                                [matBadge]="(operation.badge &&  row[operation.badge] > 0) ? row[operation.badge] : null"
+                                                matBadgeColor="accent">
+                                                {{operation.icon}}
+                                            </mat-icon>
+                                            <span>{{operation.toolTip}}</span>
+                                        </button>
+                                    </div>
+                                </mat-menu>
+                            </div>
+                            <!-- / 'More' Visualization -->
+
+                            <!-- 'icons' Visualization -->
+                            <div [fxHide]="column.operationVisualization && column.operationVisualization === 'more'"
+                                fxHide.xs fxLayout="row">
+                                <div *ngFor="let operation of column.operations">
+                                    <button [fxHide.xs]="operation.hideOnXs"
+                                        *ngIf="!operation.hideCondition || (operation.hideCondition && operation.hideCondition(row))"
+                                        mat-icon-button matTooltip="{{operation.toolTip}}" [ngClass]="operation.color"
+                                        (click)="operation.action(row)">
+                                        <mat-icon
+                                            [matBadge]="(operation.badge && row[operation.badge] > 0) ? row[operation.badge] : null"
+                                            [matBadgeColor]="operation.badgeColor ? operation.badgeColor : 'accent'">
+                                            {{ operation.icon }}
+                                        </mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- / 'icons' Visualization -->
+
+                        </div>
+                        <!-- / OPERATIONS ROW DEFINITION -->
+
+
+                        <!-- TOGGLE ROW DEFINITION -->
+                        <div *ngIf="column.toogle">
+                            <div class="pl-12"
+                                *ngIf="!column.toogle.hideCondition || (column.toogle.hideCondition && column.toogle.hideCondition(row))">
+                                <mat-slide-toggle [disabled]="column.toogle.disabled && row[column.toogle.disabled]"
+                                    [checked]="row[column.toogle.value]" (change)="column.toogle.action(row,$event)">
+                                </mat-slide-toggle>
+                            </div>
+                        </div>
+                        <!-- / TOGGLE ROW DEFINITION -->
+
+
+                        <!-- ICON ROW DEFINITION -->
+                        <div *ngIf="column.isIcon">
+                            <mat-icon>{{column.cell(row)}}</mat-icon>
+                        </div>
+                        <!-- / ICON ROW DEFINITION -->
+
+                        <!-- HTML TEMPLATE ROW DEFINITION -->
+                        <div *ngIf="column.isHtmlTemplate" [innerHtml]="column.contentTemplate(row) | sanitizeHtml">
+                        </div>
+                        <!-- / HTML TEMPLATE ROW DEFINITION -->
+
+                        <!-- ICON ROW DEFINITION -->
+                        <div *ngIf="column.isActiveFormat">
+                            <mat-icon *ngIf="row[column.columnDef]" class="green-fg">check</mat-icon>
+                            <mat-icon *ngIf="!row[column.columnDef]" class="red-fg">close</mat-icon>
+                        </div>
+                        <!-- / ICON ROW DEFINITION -->
+                    </div>
+
+                </td>
+            </ng-container>
+            <!-- / TABLE ROW DEFINITION -->
+
+            <!-- TABLE HEADER DISPLAYER -->
+            <tr mat-header-row *matHeaderRowDef="displayedColumns" [fxHide]="hideHeader"></tr>
+            <!-- / TABLE HEADER DISPLAYER -->
+
+            <!-- TABLE ROW DISPLAYER -->
+            <tr mat-row *matRowDef="let row; columns: displayedColumns" [ngClass]="{
+                    'row-selected': row === selectedRow && isSelectable,
+                    'cursor-default': isSelectable != true
+                }" (click)="select(row)" (dblclick)="dblclick(row)" [fxHide]="loading"></tr>
+            <!-- / TABLE ROW DISPLAYER -->
+        </table>
+        <!-- / DATA TABLE -->
+
+        <!-- NO ROWS MESSAGE -->
+        <div class="rows-empty mat-table" [ngClass]="{ 'pb-0': !hidePaginator }"
+            *ngIf="!loading && dataSource.data.length === 0" fxLayoutAlign="center center">
+            {{ emptyLabel }}
+        </div>
+        <!-- / NO ROWS MESSAGE -->
+
+        <!-- XLS EXPORT BUTTON  -->
+
+        <!-- / XLS EXPORT BUTTON  -->
+
+        <!-- LOADING MESSAGE -->
+        <div class="loading mat-table" *ngIf="loading" fxLayoutAlign="center center">
+            Obteniendo información...
+        </div>
+
+        <div class="pt-40 pb-40" *ngIf="loading" fxLayoutAlign="center center">
+            <mat-spinner></mat-spinner>
+        </div>
+        <!-- / LOADING MESSAGE -->
+
+        <div fxLayout="row" fxLayoutAlign="end center" *ngIf="!serverLoading">
+
+            <!-- PAGINATOR -->
+            <mat-paginator *ngIf="!serverLoading" [fxHide]="hidePaginator || loading" #tablePaginator
+                [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+        </div>
+        <!-- / PAGINATOR -->
+
+        <!-- PAGINATOR FROM SERVER -->
+        <div *ngIf="serverLoading" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
+
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                <span class="mat-caption" ngClass.xs="hidden">Registros por Página</span>
+                <mat-form-field>
+                    <mat-select [formControl]="serverPageSize">
+                        <mat-option *ngFor="let itemPerPage of itemsPerPage" [value]="itemPerPage">
+                            {{ itemPerPage }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                <span class="mat-caption">
+                    {{ offset + 1 }} -
+                    {{ offset + limit > total ? total : offset + limit }} de
+                    {{ total }}</span>
+                <div>
+                    <button mat-icon-button (click)="previous()">
+                        <mat-icon> keyboard_arrow_left </mat-icon>
+                    </button>
+
+                    <button mat-icon-button (click)="next()">
+                        <mat-icon> keyboard_arrow_right </mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- PAGINATOR FROM SERVER -->
+    </div>
+    <!-- / CONTENT -->
+</div>

@@ -7,6 +7,9 @@ import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
 import { CoreModule } from '@angular/flex-layout';
 import { routes } from './app.routes';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { DynamicTableComponent } from './main/components/dynamic-table/dynamic-table.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +20,11 @@ import { routes } from './app.routes';
     FormsModule,
     ReactiveFormsModule,
     CoreModule,
-    RouterModule.forRoot(routes, { enableTracing: true })  // Útil para depurar rutas
+    RouterModule.forRoot(routes, { enableTracing: true }),  // Útil para depurar rutas
+
+    // Material
+    MatButtonModule,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

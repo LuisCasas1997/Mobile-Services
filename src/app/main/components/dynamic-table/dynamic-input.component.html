@@ -1,0 +1,18 @@
+<div [ngSwitch]="type">
+    <div *ngSwitchCase="'currency'">
+        <input class="h-40" [placeholder]="placeholder" [formControl]="formControl" [disabled]="disabledInput"
+            mask="separator.2" thousandSeparator="," prefix="$" type="text">
+    </div>
+    <div *ngSwitchCase="'number'">
+        <input class="h-40" [placeholder]="placeholder" [formControl]="formControl" [disabled]="disabledInput"
+            mask="separator.2" thousandSeparator="," type="text">
+    </div>
+    <div *ngSwitchCase="'decimal'">
+        <input class="h-40" [placeholder]="placeholder" [formControl]="formControl" [disabled]="disabledInput"
+            mask="separator.2" type="text">
+    </div>
+    <div *ngSwitchDefault>
+        <input matInput [placeholder]="placeholder" [formControl]="formControl" [type]="type"
+            [disabled]="disabledInput">
+    </div>
+</div>
