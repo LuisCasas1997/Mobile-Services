@@ -1,15 +1,37 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
+import { AuthService } from './main/bss/auth/auth.service';
+import { BssModule } from './main/bss/bss.module';
+import { CommonModule } from '@angular/common';
+import { CoreInitialModule } from './main/bss/core/core-initial.module';
 import { RouterOutlet } from '@angular/router';
-import { CoreModule } from "./main/bss/core/core.module";
-import { NavbarComponent } from "./main/bss/core/navbar/navbar.component";
 
 @Component({
     selector: 'app-root',
-    standalone: true,
     templateUrl: './app.component.html',
-    styleUrl: './app.component.scss',
-    imports: [RouterOutlet, CoreModule]
+    standalone: true,
+    styleUrls: ['./app.component.scss'],
+    imports: [
+        CommonModule,
+        BssModule,
+        CoreInitialModule,
+        RouterOutlet
+    ],
+    providers: [
+        AuthService
+    ],
 })
 export class AppComponent {
+
   title = 'mobile-services';
+  showNavbar = false;
+  superAuth = false;
+
+  constructor(
+    private authService: AuthService,
+  ) {
+    this.authService.isAuthenticated.subscribe((isAuthenticated) => {
+      console.log('isAuthenticated', isAuthenticated);
+      this.showNavbar = isAuthenticated;
+    });
+  }
 }

@@ -1,0 +1,8 @@
+button[disabled], button.mat-button[disabled], button.mat-raised-button[disabled] {
+  opacity: 0.5;
+}
+button[disabled], button.mat-button[disabled], button.mat-raised-button[disabled] {
+  color: #a3a3a3; /* Color del texto */
+  background-color: #282828; /* Color de fondo */
+  border-color: #d0d0d0; /* Color del borde, si es necesario */
+}

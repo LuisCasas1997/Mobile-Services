@@ -1,16 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductsModule } from './products/products.module';
-import { CoreModule } from '@angular/flex-layout';
+import { AuthModule } from './auth/auth.module';
+import { CoreInitialModule } from './core/core-initial.module';
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
     ProductsModule,
-    CoreModule
+    CoreInitialModule,
+    AuthModule
   ],
-  exports: [
-    ProductsModule
-  ]
+  providers: [
+    CoreInitialModule
+  ],
 })
 export class BssModule { }

@@ -1,0 +1,23 @@
+<div fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="80" >
+    <img [src]="('assets/logoInicial.jpg' | resizeImage:1200:718) | async" alt="Logo Inicial">
+  </div>
+
+  <div fxFlex="20" style="padding-left: 30px;">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="fill">
+        <mat-label>Correo</mat-label>
+        <input matInput formControlName="email" type="email">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Contraseña</mat-label>
+        <input matInput formControlName="password" type="password">
+      </mat-form-field>
+      <div fxLayout="column" fxLayoutAlign="end center">
+        <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">Iniciar Sesión</button>
+        <a routerLink="/auth/forgot-password">¿Olvidaste tu contraseña?</a>
+      </div>
+    </form>
+  </div>
+</div>

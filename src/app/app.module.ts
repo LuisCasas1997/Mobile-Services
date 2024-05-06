@@ -1,12 +1,14 @@
-// app.module.ts
-
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppComponent } from './app.component';
-import { RouterModule, Routes } from '@angular/router';
-import { CoreModule } from '@angular/flex-layout';
+import { RouterModule } from '@angular/router';
 import { routes } from './app.routes';
+import { BssModule } from './main/bss/bss.module';
+import { CommonModule } from '@angular/common';
+import { AppComponent } from './app.component';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { environment } from '../environments/environment';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { DynamicTableComponent } from './main/components/dynamic-table/dynamic-table.component';
@@ -17,10 +19,13 @@ import { DynamicTableComponent } from './main/components/dynamic-table/dynamic-t
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    CoreModule,
-    RouterModule.forRoot(routes, { enableTracing: true }),  // Útil para depurar rutas
+    BssModule,
+    RouterModule.forRoot(routes, { enableTracing: true }),
+  ,  // provideFirebaseApp(() => initializeApp(environment.firebase)),
+    // provideFirestore(() => getFirestore()),
 
     // Material
     MatButtonModule,
