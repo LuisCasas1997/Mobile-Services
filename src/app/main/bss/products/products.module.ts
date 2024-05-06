@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductsGridComponent } from './products-grid/products-grid.component';
 import { Routes, RouterModule } from '@angular/router';
@@ -13,6 +13,8 @@ import { ProductService } from './product.service';
 import { environment } from '../../../../environments/environment';
 import { SharedModule } from '../../../shared/shared.module';
 import { AdministratorProductsComponent } from './administrator-products/administrator-products.component';
+import { MatIconModule } from '@angular/material/icon';
+import { DynamicTableModule } from '../../components/dynamic-table/dynamic-table.module';
 
 
 export const PRODUCT_ROUTES: Routes = [
@@ -29,8 +31,9 @@ export const PRODUCT_ROUTES: Routes = [
 @NgModule({
   declarations: [
     ProductsGridComponent,
-    AdministratorProductsComponent
+    AdministratorProductsComponent,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     CommonModule,
     RouterModule.forChild(PRODUCT_ROUTES),
@@ -42,10 +45,12 @@ export const PRODUCT_ROUTES: Routes = [
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    SharedModule
+    MatIconModule,
+    SharedModule,
+    DynamicTableModule
   ],
   providers: [
     ProductService,
   ]
 })
-export class ProductsModule {}
+export class ProductsModule { }

@@ -9,6 +9,9 @@ import { AppComponent } from './app.component';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { DynamicTableComponent } from './main/components/dynamic-table/dynamic-table.component';
 
 @NgModule({
   declarations: [
@@ -21,8 +24,12 @@ import { environment } from '../environments/environment';
     ReactiveFormsModule,
     BssModule,
     RouterModule.forRoot(routes, { enableTracing: true }),
-    // provideFirebaseApp(() => initializeApp(environment.firebase)),
+  ,  // provideFirebaseApp(() => initializeApp(environment.firebase)),
     // provideFirestore(() => getFirestore()),
+
+    // Material
+    MatButtonModule,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
