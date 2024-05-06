@@ -1,34 +1,45 @@
-<div id="dialog-item-authorize" fxLayout="column" class="w-100-p">
+<div id="dialog-item-authorize" fxLayout="column" class="w-100-p" style="margin-top: 20px;">
   <div fxLayoutAlign="space-around center" fxLayout="column" fxLayout.xs="column" class="m-0 w-100-p"
     fxLayoutGap.gt-xs="8px">
 
 
-    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()" *ngIf="productForm">
 
-      <mat-form-field appearance="fill">
-        <mat-label>Nombre</mat-label>
-        <input matInput formControlName="productName" type="string">
-      </mat-form-field>
+      <div fxLayout="row" fxLayoutAlign="space-evenly center" class="w-100-p mt-20">
+        <mat-form-field appearance="outline" floatLabel="always" fxFlex="45">
+          <mat-label>Nombre</mat-label>
+          <input matInput formControlName="productName" type="string">
+        </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Precio</mat-label>
-        <input matInput formControlName="price" type="number">
-      </mat-form-field>
+        <mat-form-field appearance="outline" floatLabel="always" fxFlex="45">
+          <mat-label>Precio</mat-label>
+          <input matInput formControlName="price" type="number">
+        </mat-form-field>
+      </div>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Especificaciones Técnicas</mat-label>
-        <input matInput formControlName="technicalSpecs">
-      </mat-form-field>
+      <div fxLayout="row" fxLayoutAlign="space-evenly center" class="w-100-p mt-20">
+        <mat-form-field appearance="outline" floatLabel="always" fxFlex="45">
+          <mat-label>Especificaciones Técnicas</mat-label>
+          <input matInput formControlName="technicalSpecs">
+        </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Especificaciones Físicas</mat-label>
-        <input matInput formControlName="physicalSpecs">
-      </mat-form-field>
+        <mat-form-field appearance="outline" floatLabel="always" fxFlex="45">
+          <mat-label>Especificaciones Físicas</mat-label>
+          <input matInput formControlName="physicalSpecs">
+        </mat-form-field>
+      </div>
 
-      <input type="file" (change)="onFileSelect($event)" accept="image/*">
+      <div fxLayout="row" fxLayoutAlign="center center" class="w-100-p">
+        <img *ngIf="productForm.get('image')?.value" [src]="productForm.get('image')?.value" style="max-height: 170px; max-width: 100%;">
+      </div>
 
-      <button mat-raised-button color="primary" type="submit" [disabled]="!productForm.valid">Agregar
-        Producto</button>
+      <div fxLayout="row" fxLayoutAlign="center center" class="w-100-p" style="margin-top: 10px;">
+        <input type="file" (change)="onFileSelect($event)" accept="image/*">
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="end center" class="w-100-p" style="margin-top: 20px;">
+        <button mat-raised-button color="primary" type="submit" [disabled]="!productForm.valid">Guardar</button>
+      </div>
     </form>
   </div>
 </div>

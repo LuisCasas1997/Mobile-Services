@@ -24,7 +24,7 @@ import { DynamicTableComponent } from './main/components/dynamic-table/dynamic-t
     ReactiveFormsModule,
     BssModule,
     RouterModule.forRoot(routes, { enableTracing: true }),
-  ,  // provideFirebaseApp(() => initializeApp(environment.firebase)),
+    // provideFirebaseApp(() => initializeApp(environment.firebase)),
     // provideFirestore(() => getFirestore()),
 
     // Material

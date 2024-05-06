@@ -22,7 +22,7 @@ export class AdministratorProductsComponent implements OnInit, OnDestroy {
   displayedColumns: ColumnSource[] = [
     { columnDef: 'productName', headerName: 'Nombre Producto' },
     { columnDef: 'price', headerName: 'Precio', hideOnSm: true, hideOnXs: true },
-    { columnDef: 'image', headerName: 'Imagen', hideOnSm: true, hideOnXs: true, cell: (element: any) => { return this.truncateText(element.image) } },
+    // { columnDef: 'image', headerName: 'Imagen', hideOnSm: true, hideOnXs: true, cell: (element: any) => { return this.truncateText(element.image) } },
     { columnDef: 'technicalSpecs', headerName: 'Especificaciónes Técnicas', hideOnSm: true, hideOnXs: true },
     { columnDef: 'physicalSpecs', headerName: 'Espercificaciones Físicas' },
     {
@@ -31,13 +31,15 @@ export class AdministratorProductsComponent implements OnInit, OnDestroy {
         {
           icon: 'edit'
           , color: 'accent-900-fg'
-          , action: (element: any) => { }
+          , action: (element: any) => { this.editProduct(element) }
           , toolTip: "Editar"
         },
         {
           icon: 'delete_outline'
           , color: 'red-900-fg'
-          , action: (element: any) => { }
+          , action: (element: any) => {
+            this.deleteProduct(element)
+           }
           , toolTip: "Eliminar"
         },
       ]
@@ -73,13 +75,34 @@ export class AdministratorProductsComponent implements OnInit, OnDestroy {
   addProduct() {
     this._genericDialogService.openDialog(
       AddProductsComponent,
-      'Agregar Producto',
+      'AÑADIR PRODUCTO',
       null,
       false,
       'generic-dialog-container',
       'receipt',
       'Añadir un nuevo producto al inventario'
     ).afterClosed().subscribe(r => {
+      this.getProducts();
+    });
+  }
+
+  editProduct(product: any) {
+    console.log('ID:',product);
+    this._genericDialogService.openDialog(
+      AddProductsComponent,
+      'EDITAR PRODUCTO',
+      product,
+      false,
+      'generic-dialog-container',
+      'edit',
+      'Editar un producto existente en el inventario'
+    ).afterClosed().subscribe(r => {
+      this.getProducts();
+    });
+  }
+
+  deleteProduct(product: any) {
+    this.productService.deleteProduct(product.id).then(() => {
       this.getProducts();
     });
   }
