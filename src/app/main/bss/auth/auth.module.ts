@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProductsGridComponent } from './products-grid/products-grid.component';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -9,31 +8,27 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
-import { ProductService } from './product.service';
 import { environment } from '../../../../environments/environment';
 import { SharedModule } from '../../../shared/shared.module';
-import { AdministratorProductsComponent } from './administrator-products/administrator-products.component';
+import { LoginComponent } from './login/login.component';
+import { AuthService } from './auth.service';
+// import { AuthGuard } from './auth.guard';
 
 
-export const PRODUCT_ROUTES: Routes = [
+export const LOGIN_ROUTES = [
   {
-    path: 'products-grid',
-    component: ProductsGridComponent
-  },
-  {
-    path: 'administrator-products',
-    component: AdministratorProductsComponent
+    path: 'login',
+    component: LoginComponent
   }
 ];
 
 @NgModule({
   declarations: [
-    ProductsGridComponent,
-    AdministratorProductsComponent
+    LoginComponent,
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(PRODUCT_ROUTES),
+    RouterModule.forChild(LOGIN_ROUTES),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
     ReactiveFormsModule,
@@ -45,7 +40,8 @@ export const PRODUCT_ROUTES: Routes = [
     SharedModule
   ],
   providers: [
-    ProductService,
+    AuthService,
+    // AuthGuard
   ]
 })
-export class ProductsModule {}
+export class AuthModule { }

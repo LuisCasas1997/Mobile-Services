@@ -1,4 +1,3 @@
-// Ejemplo: core/core.module.ts
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -15,10 +14,9 @@ import { ProductsModule } from '../products/products.module';
     CommonModule,
     MatIconModule,
     MatButtonModule,
-    ProductsModule
   ],
   exports: [
     NavbarComponent,
-  ],
+  ]
 })
-export class CoreModule { }
+export class CoreInitialModule { }
