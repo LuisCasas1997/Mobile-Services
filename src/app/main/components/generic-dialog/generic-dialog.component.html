@@ -1,0 +1,41 @@
+<div id="generic-dialog">
+  <!-- HEADER   -->
+  <mat-toolbar matDialogTitle class="accent m-0">
+    <mat-toolbar-row fxLayout="row" style="justify-content: space-between;">
+      <div style="display: grid;">
+        <span class="title dialog-title text-truncate">
+          {{title}}
+        </span>
+        <span style="font-size: medium;">
+          {{subtitle}}
+        </span>
+      </div>
+      <button mat-icon-button mat-dialog-close>
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <!-- END HEADER -->
+
+  <!-- CONTENT -->
+  <div mat-dialog-content class="m-0 pt-24" fusePerfectScrollbar>
+
+    <ng-template #genericDialogDirective=genericDialogDirective genericDialogHost></ng-template>
+
+  </div>
+  <!-- END CONTENT -->
+
+  <!--fxLayoutAlign="{{(actions.length?'space-between':'end')}} center"-->
+  <!-- ACTIONS -->
+  <mat-dialog-actions class="pr-24 pl-24" fxLayout="row" fxLayoutAlign="end center">
+    <!--<button mat-button cdkFocusInitial matTooltip="Cancelar" mat-dialog-close class="grey-400">Cancelar</button>-->
+    <ng-container *ngFor="let action of actions">
+      <button mat-button (click)="action.click()" [matTooltip]="action.tooltip" [ngClass]="action.color"
+        [disabled]=" (action.$disabled | async)!= undefined && (action.$disabled | async)">
+        {{action.name}}
+      </button>
+    </ng-container>
+  </mat-dialog-actions>
+  <!-- END ACTIONS -->
+
+</div>

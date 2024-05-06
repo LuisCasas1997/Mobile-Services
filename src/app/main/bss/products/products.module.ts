@@ -15,6 +15,8 @@ import { SharedModule } from '../../../shared/shared.module';
 import { AdministratorProductsComponent } from './administrator-products/administrator-products.component';
 import { MatIconModule } from '@angular/material/icon';
 import { DynamicTableModule } from '../../components/dynamic-table/dynamic-table.module';
+import { GenericDialogModule } from '../../components/generic-dialog/generic-dialog.module';
+import { AddProductsComponent } from './administrator-products/add-products/add-products.component';
 
 
 export const PRODUCT_ROUTES: Routes = [
@@ -32,6 +34,7 @@ export const PRODUCT_ROUTES: Routes = [
   declarations: [
     ProductsGridComponent,
     AdministratorProductsComponent,
+    AddProductsComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
@@ -47,7 +50,8 @@ export const PRODUCT_ROUTES: Routes = [
     MatButtonModule,
     MatIconModule,
     SharedModule,
-    DynamicTableModule
+    DynamicTableModule,
+    GenericDialogModule
   ],
   providers: [
     ProductService,

@@ -3,7 +3,7 @@
   <div class="search-filter" fxLayout="row" fxLayoutAlign="end center">
     <input type="text" placeholder="Buscar ..." [formControl]="keywordCtrl">
     <div class="button-add">
-      <button mat-fab color="accent" tooltip="Agregar Procuto">
+      <button mat-fab color="accent" tooltip="Agregar Procuto" (click)="addProduct()">
         <mat-icon>add</mat-icon>
       </button>
     </div>
